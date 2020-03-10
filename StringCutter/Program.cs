@@ -19,13 +19,20 @@ namespace StringCutter
                 return input;
             var rightCharPos = leftCharPos + 1;
 
-            while (leftCharPos > 0 && rightCharPos < input.Length - 1 && charToTheLeftIsTheSame(input, leftCharPos) && charToTheRightIsTheSame(input, rightCharPos))
+            while (charPositionIsNotAtEdgesOfString(input, leftCharPos, rightCharPos)
+                && charToTheLeftIsTheSame(input, leftCharPos)
+                && charToTheRightIsTheSame(input, rightCharPos))
             {
                 leftCharPos--;
                 rightCharPos++;
             }
 
             return input.Remove(leftCharPos, rightCharPos - leftCharPos + 1);
+        }
+
+        private static bool charPositionIsNotAtEdgesOfString(string input, int leftCharPos, int rightCharPos)
+        {
+            return leftCharPos > 0 && rightCharPos < input.Length - 1;
         }
 
         private static bool charToTheRightIsTheSame(string input, int rightCharPos)
